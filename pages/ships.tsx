@@ -1,14 +1,6 @@
 import { useQuery } from "@apollo/client";
-import {
-  Box,
-  Text,
-  Stack,
-  useColorModeValue,
-  Grid,
-  Skeleton,
-} from "@chakra-ui/react";
+import { Stack, Grid, Skeleton } from "@chakra-ui/react";
 import { GET_SHIPS } from "../graphql/getShips";
-import Image from "next/image";
 import Card from "../components/Card";
 
 const templateColumns = {
