@@ -1,7 +1,17 @@
 import { useQuery } from "@apollo/client";
-import { Stack, Grid, Skeleton, Spinner, Flex } from "@chakra-ui/react";
-import { GET_SHIPS } from "../graphql/getShips";
-import Card from "../components/Card";
+import {
+  Grid,
+  Spinner,
+  Flex,
+  Alert,
+  AlertIcon,
+  AlertDescription,
+  AlertTitle,
+  CloseButton,
+} from "@chakra-ui/react";
+import { GET_SHIPS } from "@graphql/getShips";
+import Card from "@components/Card";
+import { Ship } from "types/graphqlTypes";
 
 const templateColumns = {
   base: "repeat(1, 1fr)",
@@ -10,7 +20,21 @@ const templateColumns = {
 };
 
 const Ships = () => {
-  const { data, loading } = useQuery(GET_SHIPS);
+  const { data, loading, error } = useQuery<{
+    ships: Ship[];
+  }>(GET_SHIPS);
+  console.log(data);
+
+  if (error) {
+    return (
+      <p>Error upon requesting ships.</p>
+      // <Alert status="error" mt={8}>
+      //   <AlertIcon />
+      //   <AlertDescription>Error upon requesting ships.</AlertDescription>
+      //   <CloseButton position="absolute" right="8px" top="8px" />
+      // </Alert>
+    );
+  }
 
   return (
     <>
@@ -19,11 +43,23 @@ const Ships = () => {
           <Spinner />
         </Flex>
       ) : (
-        <Grid templateColumns={templateColumns} gap={6} p="4" w="100%">
-          {data?.ships?.map((q: any, i: number) => (
-            <Card key={i} data={q} />
-          ))}
-        </Grid>
+        <>
+          {data?.ships.length ? (
+            <div data-testid="ships-container">
+              <Grid templateColumns={templateColumns} gap={6} p="4" w="100%">
+                {data.ships.map((q: Ship, i: number) => (
+                  <Card key={i} data={q} />
+                ))}
+              </Grid>
+            </div>
+          ) : (
+            <Alert status="error" mt={8}>
+              <AlertIcon />
+              <AlertDescription>There are no ships.</AlertDescription>
+              <CloseButton position="absolute" right="8px" top="8px" />
+            </Alert>
+          )}
+        </>
       )}
     </>
   );

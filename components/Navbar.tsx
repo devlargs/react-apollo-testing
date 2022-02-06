@@ -5,7 +5,7 @@ const Navbar = () => (
   <Box px="12" py="4">
     <Flex
       justifyContent="space-around"
-      color={"gray.400"}
+      color={"gray.700"}
       textTransform={"uppercase"}
       fontWeight={800}
       fontSize={"sm"}

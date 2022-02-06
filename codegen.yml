@@ -1,0 +1,8 @@
+schema:
+  - https://api.spacex.land/graphql/
+generates:
+  ./types/graphqlTypes.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-document-nodes
