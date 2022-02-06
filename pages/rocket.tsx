@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Stack, Grid, Skeleton } from "@chakra-ui/react";
+import { Stack, Grid, Skeleton, Spinner, Box, Flex } from "@chakra-ui/react";
 import Card from "../components/Card";
 import { GET_ROCKET } from "../graphql/getRocket";
 
@@ -15,13 +15,9 @@ const Rocket = () => {
   return (
     <>
       {loading ? (
-        <Grid templateColumns={templateColumns} gap={6} p="4" w="100%">
-          {Array.from({ length: 20 }).map((_, i) => (
-            <Stack key={i}>
-              <Skeleton height={522} pb="1" />
-            </Stack>
-          ))}
-        </Grid>
+        <Flex justifyContent="center" mt="16">
+          <Spinner />
+        </Flex>
       ) : (
         <Grid templateColumns={templateColumns} gap={6} p="4" w="100%">
           {data?.rockets?.map((q: any, i: number) => (
