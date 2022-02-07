@@ -23,16 +23,14 @@ const Ships = () => {
   const { data, loading, error } = useQuery<{
     ships: Ship[];
   }>(GET_SHIPS);
-  console.log(data);
 
   if (error) {
     return (
-      <p>Error upon requesting ships.</p>
-      // <Alert status="error" mt={8}>
-      //   <AlertIcon />
-      //   <AlertDescription>Error upon requesting ships.</AlertDescription>
-      //   <CloseButton position="absolute" right="8px" top="8px" />
-      // </Alert>
+      <Alert status="error" mt={8}>
+        <AlertIcon />
+        <AlertDescription>Error upon requesting ships.</AlertDescription>
+        <CloseButton position="absolute" right="8px" top="8px" />
+      </Alert>
     );
   }
 
